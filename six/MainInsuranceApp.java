@@ -1,0 +1,66 @@
+package com.insurancedetails.example.six;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class MainInsuranceApp {
+
+	public static void main(String[] args) {
+		
+		InsurancePolicy policy=new InsurancePolicy();
+		
+		try(Scanner policyScanner=new Scanner(System.in)){
+			
+			String policyHolderName;
+			while(true){
+			policyHolderName =policy.readValidString(policyScanner,"Enter the Policy Holder Name :- ");
+			if(policyHolderName.matches("[a-zA-Z]+")&& policyHolderName.length()<=20){
+				break;
+			}
+			System.out.println("oops...! Enter valid name ");
+			}
+			policy.setPolicyHolderName(policyHolderName);
+			
+			long policyNumber=policy.readValidLong(policyScanner, "Enter The Policy Number :- ");
+			policy.setPolicyNumber(policyNumber);
+			
+			long policyAmount=policy.readValidLong(policyScanner, "Enter The Policy Amount :- ");
+			policy.setPolicyAmount(policyAmount);
+			
+			long PolicyPremium=policyAmount/2;
+			
+			if(PolicyPremium>=10000 || PolicyPremium<1000) {
+				PolicyPremium=PolicyPremium/5;
+				System.out.println("\n\n***********************************");
+				System.out.println("Policy Holder Name : " + policy.getPolicyHolderName());
+				System.out.println("Policy Number : " + policy.getPolicyNumber());
+				System.out.println("Policy Amount : ₹" + policy.getPolicyAmount());
+				System.out.println("You have to pay Policy Premium : ₹"+ PolicyPremium + " for 10 years");
+			}
+			
+			else if(PolicyPremium>50000 || PolicyPremium<10001) {
+				PolicyPremium=PolicyPremium/7;
+				System.out.println("\n\n***********************************");
+				System.out.println("Policy Holder Name : " + policy.getPolicyHolderName());
+				System.out.println("Policy Number : " + policy.getPolicyNumber());
+				System.out.println("Policy Amount : ₹" + policy.getPolicyAmount());
+				System.out.println("You have to pay Policy Premium : ₹"+ PolicyPremium + " for 10 years");
+			}
+			
+			else if (PolicyPremium<50001 ) {
+				PolicyPremium=PolicyPremium/10;
+				System.out.println("\n\n***********************************");
+				System.out.println("Policy Holder Name : " + policy.getPolicyHolderName());
+				System.out.println("Policy Number : " + policy.getPolicyNumber());
+				System.out.println("Policy Amount : ₹" + policy.getPolicyAmount());
+				System.out.println("You have to pay Policy Premium : ₹"+ PolicyPremium + " for 10 years");
+			}			
+	 }
+		catch (ArithmeticException e) {
+			System.out.println("Error : " + e.getMessage());
+		}
+		catch (InputMismatchException e) {
+			System.out.println("Error : " + e.getMessage());
+		}
+	}
+}
